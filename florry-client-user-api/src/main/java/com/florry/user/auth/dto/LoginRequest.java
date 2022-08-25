@@ -1,4 +1,4 @@
-package com.florry.user.api.auth.dto;
+package com.florry.user.auth.dto;
 
 public class LoginRequest {
     private String email;

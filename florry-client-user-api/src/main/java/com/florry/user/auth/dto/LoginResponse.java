@@ -1,4 +1,4 @@
-package com.florry.user.api.auth.dto;
+package com.florry.user.auth.dto;
 
 public class LoginResponse {
     private String name;

@@ -1,8 +1,8 @@
-package com.florry.user.api.auth.ui;
+package com.florry.user.auth.ui;
 
-import com.florry.user.api.auth.dto.LoginRequest;
-import com.florry.user.api.auth.dto.LoginResponse;
-import com.florry.user.api.auth.service.AuthService;
+import com.florry.user.auth.dto.LoginRequest;
+import com.florry.user.auth.dto.LoginResponse;
+import com.florry.user.auth.service.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +15,11 @@ public class AuthRestController {
 
     public AuthRestController(AuthService authService) {
         this.authService = authService;
+    }
+
+    @GetMapping
+    public ResponseEntity<String> test() {
+        return ResponseEntity.ok("test");
     }
 
     @PostMapping("/login")

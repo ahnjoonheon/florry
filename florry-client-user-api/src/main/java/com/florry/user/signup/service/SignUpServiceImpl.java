@@ -1,4 +1,4 @@
-package com.florry.user.api.signup.service;
+package com.florry.user.signup.service;
 
 import org.springframework.stereotype.Service;
 

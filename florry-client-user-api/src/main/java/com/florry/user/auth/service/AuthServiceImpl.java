@@ -1,10 +1,10 @@
-package com.florry.user.api.auth.service;
+package com.florry.user.auth.service;
 
 import com.florry.common.constant.UserStatus;
 import com.florry.domain.user.UserRepository;
-import com.florry.user.api.auth.dto.AuthModelMapper;
-import com.florry.user.api.auth.dto.LoginRequest;
-import com.florry.user.api.auth.dto.LoginResponse;
+import com.florry.user.auth.dto.AuthModelMapper;
+import com.florry.user.auth.dto.LoginRequest;
+import com.florry.user.auth.dto.LoginResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;

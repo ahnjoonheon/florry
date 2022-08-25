@@ -1,4 +1,4 @@
-package com.florry.user.api.auth.dto;
+package com.florry.user.auth.dto;
 
 import com.florry.domain.user.User;
 import org.mapstruct.Mapper;
