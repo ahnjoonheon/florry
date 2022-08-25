@@ -13,6 +13,4 @@ public class SignUpRestController {
     public SignUpRestController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-
-
 }

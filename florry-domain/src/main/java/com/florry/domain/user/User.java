@@ -50,10 +50,6 @@ public class User extends BaseTimeEntity {
         this.userStatus = userStatus;
     }
 
-    public static UserBuilder builder() {
-        return new UserBuilder();
-    }
-
     public String getEmail() {
         return email;
     }
@@ -68,6 +64,10 @@ public class User extends BaseTimeEntity {
 
     public UserStatus getUserStatus() {
         return userStatus;
+    }
+
+    public static UserBuilder builder() {
+        return new UserBuilder();
     }
 
     public static final class UserBuilder {
