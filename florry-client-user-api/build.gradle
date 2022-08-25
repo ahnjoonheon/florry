@@ -1,0 +1,42 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.6'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java-library'
+}
+
+group = 'com.florry'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 17
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Spring Boot
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.7.3'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor:2.7.3'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.3'
+
+    // MapStruct
+    implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
+
+    // Mockito
+    testImplementation 'org.mockito:mockito-inline:3.12.4'
+
+    // REST Assured
+    testImplementation 'io.rest-assured:rest-assured:4.4.0'
+
+    // Other Modules
+    implementation project(':florry-common')
+    implementation project(':florry-domain')
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    enabled(false)
+}

@@ -1,0 +1,5 @@
+rootProject.name = 'florry'
+include 'florry-common'
+include 'florry-domain'
+include 'florry-client-user-api'
+
