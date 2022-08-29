@@ -9,10 +9,17 @@ import javax.persistence.*;
 @Entity
 @Table(
         name = "USER",
-        uniqueConstraints = {@UniqueConstraint(columnNames = "NICKNAME", name = "UQ_USER_NICKNAME")}
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "NICKNAME", name = "UQ_USER_NICKNAME"),
+                @UniqueConstraint(columnNames = "EMAIL", name = "UQ_USER_EMAIL")
+        }
 )
 public class User extends BaseTimeEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID", nullable = false)
+    private Long id;
+
     @Column(name = "EMAIL", nullable = false)
     private String email;
 
@@ -42,12 +49,8 @@ public class User extends BaseTimeEntity {
     protected User() {
     }
 
-    private User(String email, String password, String nickName, UserRole userRole, UserStatus userStatus) {
-        this.email = email;
-        this.password = password;
-        this.nickName = nickName;
-        this.userRole = userRole;
-        this.userStatus = userStatus;
+    public Long getId() {
+        return id;
     }
 
     public String getEmail() {
@@ -58,7 +61,23 @@ public class User extends BaseTimeEntity {
         return password;
     }
 
-    public UserRole getRole() {
+    public String getName() {
+        return name;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public String getSsn() {
+        return ssn;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public UserRole getUserRole() {
         return userRole;
     }
 
@@ -71,9 +90,13 @@ public class User extends BaseTimeEntity {
     }
 
     public static final class UserBuilder {
+        private Long id;
         private String email;
         private String password;
+        private String name;
         private String nickName;
+        private String ssn;
+        private String mobile;
         private UserRole userRole;
         private UserStatus userStatus;
 
@@ -82,6 +105,11 @@ public class User extends BaseTimeEntity {
 
         public static UserBuilder anUser() {
             return new UserBuilder();
+        }
+
+        public UserBuilder id(Long id) {
+            this.id = id;
+            return this;
         }
 
         public UserBuilder email(String email) {
@@ -94,12 +122,27 @@ public class User extends BaseTimeEntity {
             return this;
         }
 
+        public UserBuilder name(String name) {
+            this.name = name;
+            return this;
+        }
+
         public UserBuilder nickName(String nickName) {
             this.nickName = nickName;
             return this;
         }
 
-        public UserBuilder role(UserRole userRole) {
+        public UserBuilder ssn(String ssn) {
+            this.ssn = ssn;
+            return this;
+        }
+
+        public UserBuilder mobile(String mobile) {
+            this.mobile = mobile;
+            return this;
+        }
+
+        public UserBuilder userRole(UserRole userRole) {
             this.userRole = userRole;
             return this;
         }
@@ -110,7 +153,17 @@ public class User extends BaseTimeEntity {
         }
 
         public User build() {
-            return new User(email, password, nickName, userRole, userStatus);
+            User user = new User();
+            user.mobile = this.mobile;
+            user.email = this.email;
+            user.name = this.name;
+            user.userStatus = this.userStatus;
+            user.nickName = this.nickName;
+            user.password = this.password;
+            user.userRole = this.userRole;
+            user.ssn = this.ssn;
+            user.id = this.id;
+            return user;
         }
     }
 }
