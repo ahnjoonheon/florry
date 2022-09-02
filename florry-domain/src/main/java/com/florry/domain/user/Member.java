@@ -49,19 +49,6 @@ public class Member extends BaseTimeEntity {
     protected Member() {
     }
 
-    private Member(String email, String password, String name, String nickName, String ssn, String mobile) {
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.nickName = nickName;
-        this.ssn = ssn;
-        this.mobile = mobile;
-    }
-
-    public static Member createUser(String email, String password, String name, String nickName, String ssn, String mobile) {
-        return new Member(email, password, name, nickName, ssn, mobile);
-    }
-
     public Member withRoleBySignUp(MemberRole memberRole) {
         this.memberRole = memberRole;
         return this;

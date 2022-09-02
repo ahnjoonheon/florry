@@ -10,7 +10,4 @@ public record SignUpRequest(
         String nickName,
         String ssn,
         String mobile) {
-    public Member toUser() {
-        return Member.createUser(this.email, this.password, this.name, this.nickName, this.ssn, this.mobile);
-    }
 }
