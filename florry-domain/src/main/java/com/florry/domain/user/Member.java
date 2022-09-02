@@ -1,20 +1,20 @@
 package com.florry.domain.user;
 
-import com.florry.common.constant.UserRole;
-import com.florry.common.constant.UserStatus;
+import com.florry.common.constant.MemberRole;
+import com.florry.common.constant.MemberStatus;
 import com.florry.domain.common.BaseTimeEntity;
 
 import javax.persistence.*;
 
 @Entity
 @Table(
-        name = "USER",
+        name = "MEMBER",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "NICKNAME", name = "UQ_USER_NICKNAME"),
                 @UniqueConstraint(columnNames = "EMAIL", name = "UQ_USER_EMAIL")
         }
 )
-public class User extends BaseTimeEntity {
+public class Member extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID", nullable = false)
@@ -39,14 +39,37 @@ public class User extends BaseTimeEntity {
     private String mobile;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "ROLE", nullable = false)
-    private UserRole userRole;
+    @Column(name = "MEMBER_ROLE", nullable = false)
+    private MemberRole memberRole;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "USER_STATUS", nullable = false)
-    private UserStatus userStatus;
+    @Column(name = "MEMBER_STATUS", nullable = false)
+    private MemberStatus memberStatus;
 
-    protected User() {
+    protected Member() {
+    }
+
+    private Member(String email, String password, String name, String nickName, String ssn, String mobile) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.nickName = nickName;
+        this.ssn = ssn;
+        this.mobile = mobile;
+    }
+
+    public static Member createUser(String email, String password, String name, String nickName, String ssn, String mobile) {
+        return new Member(email, password, name, nickName, ssn, mobile);
+    }
+
+    public Member withRoleBySignUp(MemberRole memberRole) {
+        this.memberRole = memberRole;
+        return this;
+    }
+
+    public Member withUserStatusBySignUp(MemberStatus memberStatus) {
+        this.memberStatus = memberStatus;
+        return this;
     }
 
     public Long getId() {
@@ -77,12 +100,12 @@ public class User extends BaseTimeEntity {
         return mobile;
     }
 
-    public UserRole getUserRole() {
-        return userRole;
+    public MemberRole getMemberRole() {
+        return memberRole;
     }
 
-    public UserStatus getUserStatus() {
-        return userStatus;
+    public MemberStatus getUserStatus() {
+        return memberStatus;
     }
 
     public static UserBuilder builder() {
@@ -97,8 +120,8 @@ public class User extends BaseTimeEntity {
         private String nickName;
         private String ssn;
         private String mobile;
-        private UserRole userRole;
-        private UserStatus userStatus;
+        private MemberRole memberRole;
+        private MemberStatus memberStatus;
 
         private UserBuilder() {
         }
@@ -142,28 +165,28 @@ public class User extends BaseTimeEntity {
             return this;
         }
 
-        public UserBuilder userRole(UserRole userRole) {
-            this.userRole = userRole;
+        public UserBuilder userRole(MemberRole memberRole) {
+            this.memberRole = memberRole;
             return this;
         }
 
-        public UserBuilder userStatus(UserStatus userStatus) {
-            this.userStatus = userStatus;
+        public UserBuilder userStatus(MemberStatus memberStatus) {
+            this.memberStatus = memberStatus;
             return this;
         }
 
-        public User build() {
-            User user = new User();
-            user.mobile = this.mobile;
-            user.email = this.email;
-            user.name = this.name;
-            user.userStatus = this.userStatus;
-            user.nickName = this.nickName;
-            user.password = this.password;
-            user.userRole = this.userRole;
-            user.ssn = this.ssn;
-            user.id = this.id;
-            return user;
+        public Member build() {
+            Member member = new Member();
+            member.mobile = this.mobile;
+            member.email = this.email;
+            member.name = this.name;
+            member.memberStatus = this.memberStatus;
+            member.nickName = this.nickName;
+            member.password = this.password;
+            member.memberRole = this.memberRole;
+            member.ssn = this.ssn;
+            member.id = this.id;
+            return member;
         }
     }
 }

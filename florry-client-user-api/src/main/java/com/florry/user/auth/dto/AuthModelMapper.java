@@ -1,14 +1,14 @@
 package com.florry.user.auth.dto;
 
-import com.florry.domain.user.User;
+import com.florry.domain.user.Member;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface AuthModelMapper {
 
-    User to(LoginRequest loginRequest);
+    Member to(LoginRequest loginRequest);
 
-    LoginResponse of(User user);
+    LoginResponse of(Member member);
 
 
 

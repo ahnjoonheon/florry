@@ -8,15 +8,20 @@ import com.florry.user.signup.service.SignUpService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+@ActiveProfiles("test")
+@WebMvcTest(controllers = SignUpRestController.class)
+@DisplayName("RecruitRestController 테스트")
 class SignUpRestControllerTest extends AbstractControllerTest {
     private static final String DEFAULT_API_URL = "/api/sign-up";
 
@@ -42,7 +47,8 @@ class SignUpRestControllerTest extends AbstractControllerTest {
     void signUp() throws Exception {
         // given
         given(this.signUpService.signUp(any(SignUpRequest.class))).willReturn(this.signUpResponse);
-        given(this.signUpResponse.getId()).willReturn(1L);
+        Long id = 1L;
+        given(this.signUpResponse.id()).willReturn(id);
 
         // when - then
         mockMvc.perform(post(DEFAULT_API_URL)
@@ -50,6 +56,6 @@ class SignUpRestControllerTest extends AbstractControllerTest {
                         .content(new ObjectMapper().writeValueAsString(this.signUpRequest)))
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(header().string(HttpHeaders.LOCATION, "/api/users/1"));
+                .andExpect(header().string(HttpHeaders.LOCATION, "/api/users/%d".formatted(id)));
     }
 }

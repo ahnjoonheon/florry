@@ -1,6 +1,6 @@
 package com.florry.common.constant;
 
-public enum UserStatus {
+public enum MemberStatus {
     NORMAL,
     DORMANT,
     WITHDRAW;

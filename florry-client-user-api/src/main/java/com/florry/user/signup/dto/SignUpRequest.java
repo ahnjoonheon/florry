@@ -1,35 +1,16 @@
 package com.florry.user.signup.dto;
 
 
-public class SignUpRequest {
-    private String email;
-    private String password;
-    private String name;
-    private String nickName;
-    private String ssn;
-    private String mobile;
+import com.florry.domain.user.Member;
 
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public String getSsn() {
-        return ssn;
-    }
-
-    public String getMobile() {
-        return mobile;
+public record SignUpRequest(
+        String email,
+        String password,
+        String name,
+        String nickName,
+        String ssn,
+        String mobile) {
+    public Member toUser() {
+        return Member.createUser(this.email, this.password, this.name, this.nickName, this.ssn, this.mobile);
     }
 }

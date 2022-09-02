@@ -1,6 +1,6 @@
 package com.florry.common.constant;
 
-public enum UserRole {
+public enum MemberRole {
     USER,
     OPERATOR,
     MASTER;

@@ -24,7 +24,7 @@ public class SignUpRestController {
     @PostMapping
     public ResponseEntity<SignUpResponse> signUp(@RequestBody SignUpRequest signUpRequest) {
         return ResponseEntity.created(
-                URI.create("/api/users/%d".formatted(signUpService.signUp(signUpRequest).getId())))
+                URI.create("/api/users/%d".formatted(signUpService.signUp(signUpRequest).id())))
                 .build();
     }
 }
