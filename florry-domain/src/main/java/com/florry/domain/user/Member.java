@@ -59,6 +59,22 @@ public class Member extends BaseTimeEntity {
         return this;
     }
 
+    public Member update(Member member) {
+        this.email = member.email;
+        this.password = member.password;
+        this.name = member.name;
+        this.nickName = member.nickName;
+        this.ssn = member.ssn;
+        this.mobile = member.mobile;
+        this.memberRole = member.memberRole;
+        this.memberStatus = member.memberStatus;
+        return this;
+    }
+
+    public void withdraw() {
+        this.memberStatus = MemberStatus.WITHDRAW;
+    }
+
     public Long getId() {
         return id;
     }

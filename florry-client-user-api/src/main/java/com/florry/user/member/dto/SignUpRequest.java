@@ -1,7 +1,4 @@
-package com.florry.user.signup.dto;
-
-
-import com.florry.domain.user.Member;
+package com.florry.user.member.dto;
 
 public record SignUpRequest(
         String email,
