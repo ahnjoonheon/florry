@@ -108,7 +108,7 @@ class MemberRepositoryTest {
     }
 
     @Test
-    @DisplayName("Member 조회")
+    @DisplayName("Member 상세 조회")
     void find_member_by_id() {
         // given
         Member member = memberRepository.save(Member.builder()

@@ -40,4 +40,9 @@ public class MemberRestController {
         memberService.withdrawMember(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<MemberResponse> findMember(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(memberService.findMember(id));
+    }
 }

@@ -9,4 +9,6 @@ public interface MemberService {
     List<MemberResponse> findMembersBySearchCondition(MemberSearchCondition memberSearchCondition);
     MemberResponse updateMember(Long id, MemberRequest memberRequest);
     void withdrawMember(Long id);
+
+    MemberResponse findMember(Long id);
 }

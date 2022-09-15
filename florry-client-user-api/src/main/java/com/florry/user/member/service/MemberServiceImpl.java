@@ -53,6 +53,12 @@ public class MemberServiceImpl implements MemberService {
         findMemberOrElseThrow(id).withdraw();
     }
 
+    @Transactional
+    @Override
+    public MemberResponse findMember(Long id) {
+        return memberModelMapper.toMemberResponse(findMemberOrElseThrow(id));
+    }
+
     private Member findMemberOrElseThrow(Long id) {
         return memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("cannot find by id(%d)".formatted(id)));

@@ -1,13 +1,11 @@
-package com.florry.user.signup.service;
+package com.florry.user.member.service;
 
 import com.florry.common.constant.MemberRole;
 import com.florry.common.constant.MemberStatus;
 import com.florry.domain.user.Member;
 import com.florry.domain.user.MemberRepository;
 import com.florry.user.member.dto.*;
-import com.florry.user.member.service.MemberService;
-import com.florry.user.member.service.MemberServiceImpl;
-import org.assertj.core.api.Assertions;
+import org.assertj.core.util.IterableUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -46,7 +44,7 @@ class MemberServiceImplTest {
     @Mock
     private MemberSearchCondition mockMemberSearchCondition;
     @Mock
-    private MemberResponse memberResponse;
+    private MemberResponse mockMemberResponse;
     @Mock
     private MemberRequest memberRequest;
 
@@ -71,8 +69,8 @@ class MemberServiceImplTest {
     @DisplayName("회원 조회")
     void findMembers() {
         // given
-        given(memberRepository.findAll(mockMemberSearchCondition.build())).willReturn(memberIterable);
-        given(memberModelMapper.toMemberResponses(memberIterable)).willReturn(List.of(memberResponse));
+        given(memberRepository.findAll(mockMemberSearchCondition.build())).willReturn(IterableUtil.iterable(member));
+        given(memberModelMapper.toMemberResponses(IterableUtil.iterable(member))).willReturn(List.of(mockMemberResponse));
 
         // when
         List<MemberResponse> memberResponses = memberService.findMembersBySearchCondition(mockMemberSearchCondition);
@@ -106,5 +104,18 @@ class MemberServiceImplTest {
 
         // then
         verify(member).withdraw();
+    }
+
+    @Test
+    @DisplayName("회원 상세 조회")
+    void findMember() {
+        // given
+        given(memberRepository.findById(anyLong())).willReturn(Optional.of(member));
+
+        // when
+        MemberResponse memberResponse = memberService.findMember(anyLong());
+
+        // then
+        assertThat(memberResponse).isNotNull();
     }
 }

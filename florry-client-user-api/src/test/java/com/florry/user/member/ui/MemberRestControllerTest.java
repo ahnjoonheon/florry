@@ -1,11 +1,9 @@
-package com.florry.user.signup.ui;
+package com.florry.user.member.ui;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.florry.user.AbstractControllerTest;
 import com.florry.user.member.dto.*;
 import com.florry.user.member.service.MemberService;
-import com.florry.user.member.ui.MemberRestController;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @WebMvcTest(controllers = MemberRestController.class)
 @DisplayName("MemberRestController 테스트")
-class SignUpRestControllerTest extends AbstractControllerTest {
+class MemberRestControllerTest extends AbstractControllerTest {
     private static final String DEFAULT_API_URL = "/api/members";
 
     @Autowired
@@ -104,5 +102,16 @@ class SignUpRestControllerTest extends AbstractControllerTest {
         mockMvc.perform(delete(DEFAULT_API_URL + "/1"))
                 .andDo(print())
                 .andExpect(status().isNoContent());
+    }
+
+    @Test
+    @DisplayName("회원 상세 조회 요청")
+    void findMember() throws Exception {
+        // given
+        given(this.memberService.findMember(anyLong())).willReturn(memberResponse);
+        // when - then
+        mockMvc.perform(get(DEFAULT_API_URL+"/1"))
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 }
